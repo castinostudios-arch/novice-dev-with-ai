@@ -1,0 +1,5 @@
+# CODEOWNERS
+# Every Pull Request in this repo is automatically assigned to the instructor for review.
+# GitHub will request a review from @mhiskall282 on every PR opened by a student.
+
+* @mhiskall282
