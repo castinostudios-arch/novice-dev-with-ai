@@ -1,0 +1,55 @@
+@keyframes skeleton-shimmer {
+  0% {
+    background-position-x: 200%;
+  }
+  100% {
+    background-position-x: 0%;
+  }
+}
+.skeleton {
+  display: contents;
+  /* Define the colors as css custom props */
+  --_default-color: #e8e8e8;
+  --_shimmer-color: #fff;
+  :not(.wrapper) {
+    /* Apply the animation that moves the background */
+    animation: skeleton-shimmer 2s ease-out infinite;
+    /* Create a background that has a small shimmer "stripe"
+      and tilt it 100 degrees. */
+    background: linear-gradient(
+      100deg,
+      var(--_default-color),
+      var(--_default-color) 50%,
+      var(--_shimmer-color) 60%,
+      var(--_default-color) 70%
+    );
+    /* Make the background twice the width so we can offset it. */
+    background-size: 200% 100%;
+    background-attachment: fixed;
+  }
+}
+Accessibility
+When adding a skeleton loader, you should make sure that you use the aria-live="polite" and aria-busy attributes to make screenreaders properly handle your content.
+
+Bonus Svelte Component
+Here is a Svelte implementation of this idea. There is <Loading> component that sets the appropriate aria- attributes and renderes the <Skeleton> component while it’s loading.
+
+This implementation allows you to add a skeleton loader like this:
+
+<Loading {data}>
+  {#snippet loaded(data)}
+    <!-- Will be rendered when `data` is set -->
+    {data}
+  {/snippet}
+  {#snippet skeleton()}
+    <!--
+      Uses the <Skeleton> component to render the
+      skeleton when `data` is undefined
+    -->
+    <div class="wrapper lines">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  {/snippet}
+</Loading>
